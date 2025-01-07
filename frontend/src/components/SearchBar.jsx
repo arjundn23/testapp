@@ -36,6 +36,7 @@ const SearchBar = ({ plus, filter, onFilterClick, activeFilter }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchRef = useRef(null);
 
   const dropdown1Ref = useRef(null);
   const dropdown2Ref = useRef(null);
@@ -43,6 +44,19 @@ const SearchBar = ({ plus, filter, onFilterClick, activeFilter }) => {
   const filteredFiles = files.filter((file) =>
     file.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Handle user data
   useEffect(() => {
@@ -95,7 +109,7 @@ const SearchBar = ({ plus, filter, onFilterClick, activeFilter }) => {
       {/* Top Row: Search Bar and Icons */}
       <div className="flex items-center justify-between gap-4">
         {/* Search Bar */}
-        <div className="relative w-[848px] flex flex-row gap-6 items-center">
+        <div className="relative w-[80%] flex flex-row gap-6 items-center" ref={searchRef}>
           <FaSearch className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#222221]" />
           <input
             type="text"
@@ -134,61 +148,64 @@ const SearchBar = ({ plus, filter, onFilterClick, activeFilter }) => {
           )}
         </div>
 
-        {/* Add Icon */}
-        {plus && (
-          <div className="p-2 cursor-pointer bg-[#D9534F] rounded-[7px] h-[44px]">
-            <FaPlus className="text-md md:text-xl text-white" />
-          </div>
-        )}
-        {/* Settings Icon with Dropdown */}
-        <div className="relative" ref={dropdown1Ref}>
-          <div
-            onClick={toggleDropdown1}
-            className="p-2 cursor-pointer bg-white rounded-[7px] h-[44px]"
-          >
-            <FaCog className="text-md md:text-xl text-gray-600" />
-          </div>
-          {openDropdown === 1 && isAdmin && (
-            <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
-              <Link
-                to={userInfo ? "/delete" : "#"}
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
-              >
-                User List
-              </Link>
-              <Link
-                to={userInfo ? "/register" : "#"}
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
-              >
-                Add User
-              </Link>
+        {/* Icons Group */}
+        <div className="flex items-center gap-2">
+          {/* Add Icon */}
+          {plus && (
+            <div className="p-3 cursor-pointer bg-[#D9534F] rounded-[7px]">
+              <FaPlus className="text-md md:text-xl text-white" />
             </div>
           )}
-        </div>
-        {/* User Icon with Dropdown */}
-        <div className="relative" ref={dropdown2Ref}>
-          <div
-            onClick={toggleDropdown2}
-            className="p-2 cursor-pointer bg-white rounded-[7px]"
-          >
-            <FaUser className="text-md md:text-xl text-gray-600" />
-          </div>
-          {openDropdown === 2 && (
-            <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
-              <Link
-                to="/info"
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
-              >
-                Profile
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
-              >
-                Logout
-              </button>
+          {/* Settings Icon with Dropdown */}
+          <div className="relative" ref={dropdown1Ref}>
+            <div
+              onClick={toggleDropdown1}
+              className="p-3 cursor-pointer bg-white rounded-[7px]"
+            >
+              <FaCog className="text-md md:text-xl text-gray-600" />
             </div>
-          )}
+            {openDropdown === 1 && isAdmin && (
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
+                <Link
+                  to={userInfo ? "/delete" : "#"}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
+                >
+                  User List
+                </Link>
+                <Link
+                  to={userInfo ? "/register" : "#"}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
+                >
+                  Add User
+                </Link>
+              </div>
+            )}
+          </div>
+          {/* User Icon with Dropdown */}
+          <div className="relative" ref={dropdown2Ref}>
+            <div
+              onClick={toggleDropdown2}
+              className="p-3 cursor-pointer bg-white rounded-[7px]"
+            >
+              <FaUser className="text-md md:text-xl text-gray-600" />
+            </div>
+            {openDropdown === 2 && (
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
+                <Link
+                  to="/info"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-300 transition"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

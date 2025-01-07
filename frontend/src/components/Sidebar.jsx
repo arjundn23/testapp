@@ -34,8 +34,8 @@ const Sidebar = ({ activeLink }) => {
 
   const getLinkClass = (linkName) =>
     linkName === activeLink
-      ? "flex items-center gap-4 px-3 py-2 rounded-lg bg-white text-[#D9534F] font-medium text-[15px]"
-      : "flex items-center gap-4 px-3 py-2 rounded-lg text-[15px] hover:bg-white hover:text-[#D9534F] transition font-light hover:font-medium";
+      ? "flex items-center gap-4 px-3 py-2 rounded-lg bg-white text-[#D9534F] font-medium text-[15px] font-bitter"
+      : "flex items-center gap-4 px-3 py-2 rounded-lg text-[15px] hover:bg-white hover:text-[#D9534F] transition font-light hover:font-medium font-bitter";
 
   return (
     <>
@@ -132,12 +132,12 @@ const Sidebar = ({ activeLink }) => {
 
         {/* Categories Section */}
         <div>
-          <h3 className="text-lg font-semibold mb-[5px]">CATEGORIES</h3>
+          <h3 className="text-lg font-semibold mb-[5px] font-bitter px-4">CATEGORIES</h3>
           <ul className="space-y-1">
             <li>
               <Link
                 to="/category/Introduction"
-                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer"
+                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer font-bitter px-4 py-1"
               >
                 Introduction
               </Link>
@@ -145,7 +145,7 @@ const Sidebar = ({ activeLink }) => {
             <li>
               <Link
                 to="/category/Pre-Launch"
-                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer"
+                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer font-bitter px-4 py-1"
               >
                 Pre-Launch
               </Link>
@@ -153,7 +153,7 @@ const Sidebar = ({ activeLink }) => {
             <li>
               <Link
                 to="/category/Senior Collateral"
-                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer"
+                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer font-bitter px-4 py-1"
               >
                 Senior Collateral
               </Link>
@@ -161,7 +161,7 @@ const Sidebar = ({ activeLink }) => {
             <li>
               <Link
                 to="/category/Prep Collateral"
-                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer"
+                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer font-bitter px-4 py-1"
               >
                 Prep Collateral
               </Link>
@@ -169,7 +169,7 @@ const Sidebar = ({ activeLink }) => {
             <li>
               <Link
                 to="/category/Additional Collateral"
-                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer"
+                className="flex items-center gap-2 text-sm hover:font-medium font-light cursor-pointer font-bitter px-4 py-1"
               >
                 Additional Collateral
               </Link>
@@ -179,7 +179,7 @@ const Sidebar = ({ activeLink }) => {
 
         {/* Footer */}
         <footer className="text-xs text-white opacity-70">
-          2024 Independents by Sodexo
+          {new Date().getFullYear()} Independents by Sodexo
         </footer>
       </aside>
 
